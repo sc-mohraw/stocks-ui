@@ -186,12 +186,36 @@
 }
 
 /* Sticky table headers with solid background to hide scrolling rows underneath */
-.stock-table-container .table>thead>tr>th {
+.stock-table-container .table > thead > tr > th {
   position: sticky;
   top: 0;
-  background-color: #121621 !important;
-  /* Matches rgba(18, 22, 33) */
+  background-color: #121621 !important; /* Solid background matching card to hide scrolling content */
   z-index: 2;
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08);
-  /* Bottom border effect */
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08); /* Bottom border effect */
+}
+
+/* Premium Add Stock button styles */
+.btn-add-stock {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-add-stock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35) !important;
+  color: #ffffff !important;
+}
+
+.btn-add-stock:active {
+  transform: translateY(1px);
 }

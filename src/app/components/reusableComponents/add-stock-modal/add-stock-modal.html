@@ -1,0 +1,37 @@
+<div class="modal animate-fade-in" [ngStyle]="{display: isOpen() ? 'block' : 'none'}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content position-relative overflow-hidden">
+            <!-- Glow Header Border Line -->
+            <div class="card-glow"></div>
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add Stock</h5>
+                <button type="button" class="btn-close btn-close-white" (click)="close()" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form #stockForm="ngForm">
+                    <div class="mb-3">
+                        <label class="form-label">Open Price</label>
+                        <input type="text" [(ngModel)]="stockObj.open" class="form-control" placeholder="e.g. 150.25"
+                            name="open" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Close Price</label>
+                        <input type="text" [(ngModel)]="stockObj.close" class="form-control" placeholder="e.g. 152.10"
+                            name="close" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel" (click)="close()">Close</button>
+                <button type="button" class="btn btn-add" [disabled]="!stockForm.valid" (click)="onAddStock()">Add
+                    Stock</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (isOpen()) {
+<div class="modal-backdrop fade show"></div>
+}

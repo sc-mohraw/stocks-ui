@@ -1,13 +1,14 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, signal, computed, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { StocksService } from '../../services/stocks.service';
+import { AddStockModal } from '../reusableComponents/add-stock-modal/add-stock-modal';
 
 
 @Component({
   selector: 'app-stocks',
-  imports: [CommonModule],
+  imports: [CommonModule, AddStockModal],
   templateUrl: './stocks.html',
   styleUrl: './stocks.css',
 })
@@ -15,6 +16,13 @@ export class Stocks {
   private userService = inject(UserService);
   private stocksService = inject(StocksService);
   private router = inject(Router);
+
+  @ViewChild('addStockModal')
+  addStockModal!: AddStockModal;
+
+  open() {
+    this.addStockModal.open();
+  }
 
   // User Email signal retrieved from auth storage
   userEmail = signal<string | null>(null);
