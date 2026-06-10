@@ -46,17 +46,6 @@ export class UserService {
         );
     }
 
-    logout() {
-        this.logoutApi().subscribe({
-            next: () => {
-                localStorage.removeItem('auth');
-            },
-            error: (error) => {
-                console.error('Logout failed', error);
-            }
-        });
-    }
-
     saveUserData(data: any): void {
         localStorage.setItem('auth', JSON.stringify(data));
     }
