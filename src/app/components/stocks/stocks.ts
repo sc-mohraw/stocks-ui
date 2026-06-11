@@ -1,9 +1,10 @@
-import { Component, signal, computed, inject, ViewChild } from '@angular/core';
+import { Component, signal, computed, inject, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { StocksService } from '../../services/stocks.service';
 import { AddStockModal } from '../reusableComponents/add-stock-modal/add-stock-modal';
+import { SocketService } from '../../services/socket.service';
 
 
 @Component({
@@ -12,10 +13,11 @@ import { AddStockModal } from '../reusableComponents/add-stock-modal/add-stock-m
   templateUrl: './stocks.html',
   styleUrl: './stocks.css',
 })
-export class Stocks {
+export class Stocks implements OnInit {
   private userService = inject(UserService);
   private stocksService = inject(StocksService);
   private router = inject(Router);
+  private socketService = inject(SocketService)
 
   @ViewChild('addStockModal')
   addStockModal!: AddStockModal;
@@ -65,6 +67,17 @@ export class Stocks {
 
     // Initial load of stocks
     this.loadStocks();
+  }
+
+  ngOnInit(): void {
+
+    this.socketService.onStockAdded()
+      .subscribe(() => {
+
+        console.log('New stock added, refreshing list');
+
+        this.loadStocks();
+      });
   }
 
   loadStocks() {

@@ -1,9 +1,10 @@
-import { Component, signal, inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, signal, inject, ViewChild, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js/auto';
 import { StocksService } from '../../services/stocks.service';
 import { UserService } from '../../services/user.service';
+import { SocketService } from '../../services/socket.service';
 
 interface ChartDataItem {
   label: string;
@@ -17,10 +18,12 @@ interface ChartDataItem {
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnDestroy {
+export class Dashboard implements OnInit, OnDestroy {
   private stocksService = inject(StocksService);
   private userService = inject(UserService);
   private router = inject(Router);
+  private socketService = inject(SocketService)
+
 
   // User session state
   userEmail = signal<string | null>(null);
@@ -54,6 +57,17 @@ export class Dashboard implements OnDestroy {
 
     // Load average monthly stocks
     this.loadChartData();
+  }
+
+  ngOnInit(): void {
+
+    this.socketService.onStockAdded()
+      .subscribe(() => {
+
+        console.log('New stock added, refreshing list');
+
+        this.loadChartData();
+      });
   }
 
   loadChartData() {
