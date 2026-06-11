@@ -31,4 +31,10 @@ export class StocksService {
       withCredentials: true
     });
   }
+
+  getMonthlyAverageCloseStocks(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/stocks/monthly-average`, {
+      withCredentials: true
+    });
+  }
 }

@@ -57,7 +57,7 @@ export class Login {
       .subscribe({
         next: (response: any) => {
           this.userService.saveUserData(response?.data);
-          this.router.navigate(['/stocks']);
+          this.router.navigate(['/dashboard']);
         },
 
         error: (error) => {

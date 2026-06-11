@@ -3,12 +3,18 @@ import { Login } from './components/login/login';
 import { Stocks } from './components/stocks/stocks';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
+import { Dashboard } from './components/dashboard/dashboard';
 
 export const routes: Routes = [
     {
         path: '',
         redirectTo: 'login',
         pathMatch: 'full'
+    },
+    {
+        path: 'dashboard',
+        component: Dashboard,
+        canActivate: [authGuard]
     },
     {
         path: "login",
